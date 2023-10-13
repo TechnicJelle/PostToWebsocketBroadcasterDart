@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="server.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" nameIsGenerated="true">
+    <option name="checkedMode" value="false" />
+    <option name="envs">
+      <entry key="POST_PORT" value="8080" />
+      <entry key="WS_PORT" value="8081" />
+    </option>
+    <option name="filePath" value="$PROJECT_DIR$/bin/server.dart" />
+    <option name="workingDirectory" value="$PROJECT_DIR$" />
+    <method v="2" />
+  </configuration>
+</component>

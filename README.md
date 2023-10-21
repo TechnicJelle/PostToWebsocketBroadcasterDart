@@ -21,21 +21,22 @@ Only supports binding to IPV4 addresses.
 
 Please install the [Dart SDK](https://dart.dev/get-dart) if you haven't already.
 
-#### Running directly
-
-You can run the script directly with the `dart` command.
+#### Pre-compiling
+You can  compile the server to a native executable, and run that:
 
 ```bash
-$ dart run bin/server.dart
+$ dart compile exe bin/server.dart && bin/server.exe
 POST Server listening on port 8080
 WebSocket Server broadcasting on port 8081
 ```
 
-#### Pre-compiling
-You can also compile the server to a native executable.
+#### Running directly
+
+You can also run the script directly with the `dart` command.\
+This is worse for performance (CPU & RAM) than pre-compiling, however.
 
 ```bash
-$ dart compile exe bin/server.dart && bin/server.exe
+$ dart run bin/server.dart
 POST Server listening on port 8080
 WebSocket Server broadcasting on port 8081
 ```

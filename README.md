@@ -25,7 +25,7 @@ Please install the [Dart SDK](https://dart.dev/get-dart) if you haven't already.
 You can  compile the server to a native executable, and run that:
 
 ```bash
-$ dart compile exe bin/server.dart && bin/server.exe
+$ dart pub get && dart compile exe bin/server.dart && bin/server.exe
 POST Server listening on port 8080
 WebSocket Server broadcasting on port 8081
 ```
@@ -36,7 +36,7 @@ You can also run the script directly with the `dart` command.\
 This is worse for performance (CPU & RAM) than pre-compiling, however.
 
 ```bash
-$ dart run bin/server.dart
+$ dart pub get && dart run bin/server.dart
 POST Server listening on port 8080
 WebSocket Server broadcasting on port 8081
 ```

@@ -20,7 +20,7 @@ void main(List<String> args) async {
 
 Future<void> setupPostServer(InternetAddress ip, int port) async {
   final Router router = Router()..post("/post", _postHandler);
-  final Handler handler = Pipeline().addMiddleware(logRequests()).addHandler(router);
+  final Handler handler = Pipeline().addMiddleware(logRequests()).addHandler(router.call);
 
   final server = await serve(handler, ip, port);
   print("POST Server listening on port ${server.port}");

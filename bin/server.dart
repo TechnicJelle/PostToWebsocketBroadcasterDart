@@ -47,7 +47,7 @@ Future<Response> _postHandler(Request request) async {
 }
 
 Future<void> setupWebSocketServer(InternetAddress ip, int port) async {
-  final Handler handler = webSocketHandler(_webSocketHandler);
+  final Handler handler = webSocketHandler(_webSocketHandler, pingInterval: Duration(seconds: 5));
 
   final server = await serve(handler, ip, port);
   print("WebSocket Server broadcasting on port ${server.port}");

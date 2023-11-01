@@ -54,6 +54,7 @@ void main() {
     final body = "Hello websocket channel!";
     final response = await post(Uri.parse("$host/post"), body: body);
     expect(response.statusCode, 201);
+    expect(response.body, "Accepted, sent to 1 WebSocket connection(s)\n$body");
 
     final result = await channel.stream.elementAt(1);
     channel.sink.close();

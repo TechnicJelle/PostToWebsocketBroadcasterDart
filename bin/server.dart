@@ -43,7 +43,7 @@ Future<Response> _postHandler(Request request) async {
     channel.sink.add(message);
   }
 
-  return Response(201, body: message);
+  return Response(201, body: "Accepted, sent to ${webSocketChannels.length} WebSocket connection(s)\n$message");
 }
 
 Future<void> setupWebSocketServer(InternetAddress ip, int port) async {

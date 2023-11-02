@@ -1,7 +1,7 @@
 name: post_to_websocket_broadcaster
 description: A server application that listens for HTTP POST requests and broadcasts the body of the request to all connected websockets.
 version: 1.0.0
-repository: https://github.com/TechnicJelle/PostToWebsockerBroadcasterDart
+repository: https://github.com/TechnicJelle/PostToWebsocketBroadcasterDart
 
 environment:
   sdk: ^3.0.7

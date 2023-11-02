@@ -19,8 +19,19 @@ void main() {
         "WS_PORT": webSocketPort,
       },
     );
-    // Wait for server to start and print to stdout.
-    await p.stdout.first;
+    Stream<List<int>> stdout = p.stdout.asBroadcastStream();
+
+    if (Platform.environment.containsKey("DEBUG") || Platform.environment.containsKey("RUNNER_DEBUG")) {
+      print("============================================== New Test ===============================================");
+      int i = 0;
+      stdout.forEach((List<int> message) {
+        print("$i: ${String.fromCharCodes(message)}");
+        i++;
+      });
+    }
+
+    // Wait for server to finish starting up:
+    await stdout.firstWhere((List<int> element) => String.fromCharCodes(element).contains(webSocketPort));
   });
 
   tearDown(() => p.kill());

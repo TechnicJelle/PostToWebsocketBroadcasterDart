@@ -1,4 +1,5 @@
 # Post to WebSocket Broadcaster (Dart)
+[![Tests Badge](https://github.com/TechnicJelle/PostToWebsocketBroadcasterDart/actions/workflows/tests.yml/badge.svg)](https://github.com/TechnicJelle/PostToWebsocketBroadcasterDart/actions)
 
 A little server application that listens for HTTP POST requests
 and broadcasts the body of the request to all connected websockets.

@@ -59,7 +59,13 @@ void _webSocketHandler(WebSocketChannel channel) {
   channel.sink.add("Hello from the server!");
 
   channel.stream.listen(
-    null,
+    (dynamic message) {
+      if (message is String) {
+        if (message == "ping") {
+          channel.sink.add("pong");
+        }
+      }
+    },
     onDone: () {
       webSocketChannels.remove(channel);
       print("WebSocket connection closed (${channel.closeCode} \"${channel.closeReason}\")");

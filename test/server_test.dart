@@ -71,4 +71,13 @@ void main() {
     channel.sink.close();
     expect(result, body);
   });
+
+  test("Ping Pong", () async {
+    WebSocketChannel channel = WebSocketChannel.connect(webSocketHost);
+
+    channel.sink.add("ping");
+    final result = await channel.stream.elementAt(1);
+    channel.sink.close();
+    expect(result, "pong");
+  });
 }

@@ -1,3 +1,4 @@
+import "dart:convert";
 import "dart:io";
 
 import "package:http/http.dart";
@@ -19,19 +20,19 @@ void main() {
         "WS_PORT": webSocketPort,
       },
     );
-    Stream<List<int>> stdout = p.stdout.asBroadcastStream();
+    Stream<String> stdout = p.stdout.asBroadcastStream().transform(utf8.decoder).transform(const LineSplitter());
 
     if (Platform.environment.containsKey("DEBUG") || Platform.environment.containsKey("RUNNER_DEBUG")) {
       print("============================================== New Test ===============================================");
       int i = 0;
-      stdout.forEach((List<int> message) {
-        print("$i: ${String.fromCharCodes(message)}");
+      stdout.forEach((String message) {
+        print("$i: $message}");
         i++;
       });
     }
 
     // Wait for server to finish starting up:
-    await stdout.firstWhere((List<int> element) => String.fromCharCodes(element).contains(webSocketPort));
+    await stdout.firstWhere((element) => element.contains(webSocketPort));
   });
 
   tearDown(() => p.kill());

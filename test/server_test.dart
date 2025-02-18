@@ -26,7 +26,7 @@ void main() {
       print("============================================== New Test ===============================================");
       int i = 0;
       stdout.forEach((String message) {
-        print("$i: $message}");
+        print("$i: $message");
         i++;
       });
     }

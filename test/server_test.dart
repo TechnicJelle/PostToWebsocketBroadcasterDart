@@ -36,6 +36,13 @@ void main() {
       });
     }
 
+    // Check if server crashes on startup:
+    mergedStream.forEach((element) {
+      if (element.contains("SocketException")) {
+        fail("Server failed to start: $element");
+      }
+    });
+
     // Wait for server to finish starting up:
     await mergedStream.firstWhere((element) => element.contains(webSocketPort));
   });

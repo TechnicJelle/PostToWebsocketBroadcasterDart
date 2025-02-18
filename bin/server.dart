@@ -22,7 +22,13 @@ Future<void> setupPostServer(InternetAddress ip, int port) async {
   final Router router = Router()..post("/post", _postHandler);
   final Handler handler = Pipeline().addMiddleware(logRequests()).addHandler(router.call);
 
-  final server = await serve(handler, ip, port);
+  final HttpServer server;
+  try {
+    server = await serve(handler, ip, port);
+  } on SocketException catch (se) {
+    stderr.writeln("Failed to start POST server on port $port:\n$se");
+    exit(1);
+  }
   print("POST Server listening on port ${server.port}");
 }
 
@@ -47,8 +53,13 @@ Future<Response> _postHandler(Request request) async {
 }
 
 Future<void> setupWebSocketServer(InternetAddress ip, int port) async {
-  final Handler handler = webSocketHandler(_webSocketHandler, pingInterval: Duration(seconds: 5));
-
+  final Handler handler;
+  try {
+    handler = webSocketHandler(_webSocketHandler, pingInterval: Duration(seconds: 5));
+  } on SocketException catch (se) {
+    stderr.writeln("Failed to start WebSocket server on port $port:\n$se");
+    exit(1);
+  }
   final server = await serve(handler, ip, port);
   print("WebSocket Server broadcasting on port ${server.port}");
 }

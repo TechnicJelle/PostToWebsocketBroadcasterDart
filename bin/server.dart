@@ -64,7 +64,8 @@ Future<void> setupWebSocketServer(InternetAddress ip, int port) async {
   print("WebSocket Server broadcasting on port ${server.port}");
 }
 
-void _webSocketHandler(WebSocketChannel channel) {
+void _webSocketHandler(WebSocketChannel channel, _) {
+  //_ as suggested by https://github.com/dart-lang/shelf/releases/tag/shelf_web_socket-v3.0.0
   webSocketChannels.add(channel);
   print("WebSocket connection established");
   channel.sink.add("Hello from the server!");

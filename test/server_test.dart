@@ -1,6 +1,7 @@
 import "dart:convert";
 import "dart:io";
 
+import "package:async/async.dart";
 import "package:http/http.dart";
 import "package:test/test.dart";
 import "package:web_socket_channel/web_socket_channel.dart";
@@ -20,19 +21,23 @@ void main() {
         "WS_PORT": webSocketPort,
       },
     );
-    Stream<String> stdout = p.stdout.asBroadcastStream().transform(utf8.decoder).transform(const LineSplitter());
+
+    Stream<String> mergedStream = StreamGroup.merge([p.stdout, p.stderr])
+        .transform(utf8.decoder)
+        .transform(const LineSplitter())
+        .asBroadcastStream();
 
     if (Platform.environment.containsKey("DEBUG") || Platform.environment.containsKey("RUNNER_DEBUG")) {
       print("============================================== New Test ===============================================");
       int i = 0;
-      stdout.forEach((String message) {
+      mergedStream.forEach((String message) {
         print("$i: $message");
         i++;
       });
     }
 
     // Wait for server to finish starting up:
-    await stdout.firstWhere((element) => element.contains(webSocketPort));
+    await mergedStream.firstWhere((element) => element.contains(webSocketPort));
   });
 
   tearDown(() => p.kill());
